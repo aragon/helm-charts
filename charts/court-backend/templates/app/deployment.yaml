@@ -48,8 +48,8 @@ spec:
             - name: REACT_APP_SERVER_URL
               valueFrom:
                 configMapKeyRef:
-                  name: {{ template "chart.serverConfigName" . }}
-                  key: url
+                  name: {{ template "chart.appConfigName" . }}
+                  key: backendUrl
           args:
             - "npm"
             - "run"

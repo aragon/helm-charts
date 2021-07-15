@@ -73,6 +73,7 @@ app:
   config:
     # existingConfigMap: ""
     network: "mainnet"
+    backendUrl: ""
 
 # Default values for the server deployment
 server:

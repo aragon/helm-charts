@@ -5,4 +5,5 @@ metadata:
   name: "{{ include "chart.fullname" . }}-app-config"
 data:
   network: {{ .Values.app.config.network | default "" | quote }}
+  backendUrl: {{ .Values.app.config.backendUrl | default "" | quote }}
 {{- end -}}
