@@ -1,0 +1,13 @@
+apiVersion: v1
+entries:
+  court-backend:
+  - apiVersion: v2
+    created: "2021-07-15T09:35:31.255003178Z"
+    description: A Helm chart for Aragon coourt backend (aka protocol-backend)
+    digest: 518ba9a3f2f3800c2c15f406476d77cedce2964253220f24406612f534eaea28
+    name: court-backend
+    type: application
+    urls:
+    - https://github.com/aragon/helm-charts/releases/download/court-backend-0.1.0/court-backend-0.1.0.tgz
+    version: 0.1.0
+generated: "2021-07-15T09:35:31.108992484Z"
