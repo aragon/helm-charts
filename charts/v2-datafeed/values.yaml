@@ -6,6 +6,7 @@ config:
   # existingConfigMap: ""
   network: "rinkeby"
   serverPort: 8000
+  workerPort: 8001
   corsWhitelist: "*"
 
 secret:
@@ -18,6 +19,7 @@ secret:
 
 service:
   port: 80
+  workerPort: 8080
   type: "ClusterIP"
 
 replicaCount: 1
@@ -41,6 +43,7 @@ ingress:
     # kubernetes.io/ingress.class: nginx
     # kubernetes.io/tls-acme: "true"
   host: "server"
+  workerHost: "worker"
   tls: []
   #  - secretName: chart-example-tls
   #    hosts:
