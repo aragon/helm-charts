@@ -40,6 +40,19 @@ entries:
   v2-datafeed:
   - apiVersion: v2
     appVersion: latest
+    created: "2021-07-16T17:17:50.772499678Z"
+    description: Helm chart for aragons v2-datafeed
+    digest: 90b047a21fd63051a1601c91867771173e7b4e158c60a8a216617b3477a2ad1f
+    maintainers:
+    - email: mathias@aragon.org
+      name: mathewmeconry
+    name: v2-datafeed
+    type: application
+    urls:
+    - https://github.com/aragon/helm-charts/releases/download/v2-datafeed-0.1.2/v2-datafeed-0.1.2.tgz
+    version: 0.1.2
+  - apiVersion: v2
+    appVersion: latest
     created: "2021-07-16T16:17:53.45734285Z"
     description: Helm chart for aragons v2-datafeed
     digest: cf14d304847f1ac54647525be09f35a32ed3cf0399823a699bb90e46ee53d3bf
