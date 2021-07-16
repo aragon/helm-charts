@@ -7,7 +7,7 @@ config:
   network: "rinkeby"
   serverPort: 8000
 
-secret: 
+secret:
   # existingSecret: ""
   dbName: ""
   dbHost: ""
