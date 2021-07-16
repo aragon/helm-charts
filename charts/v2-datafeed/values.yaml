@@ -6,6 +6,7 @@ config:
   # existingConfigMap: ""
   network: "rinkeby"
   serverPort: 8000
+  corsWhitelist: "*"
 
 secret:
   # existingSecret: ""
@@ -48,7 +49,7 @@ ingress:
 
 imagePullSecrets: []
 image:
-  repository: aragon/v2-datafeed
+  repository: ghcr.io/aragon/v2-datafeed
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: ""
