@@ -1,0 +1,134 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: "{{ include "chart.fullname" . }}"
+  labels:
+    {{- include "chart.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "chart.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "chart.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ .Chart.Name }}-server
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default "latest" }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: "server"
+              containerPort: {{ .Values.config.serverPort }}
+          env:
+            - name: DB_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: {{ template "chart.secretName" . }}
+                  key: dbName
+            - name: DB_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: {{ template "chart.secretName" . }}
+                  key: dbHost
+            - name: DB_PORT
+              valueFrom:
+                secretKeyRef:
+                  name: {{ template "chart.secretName" . }}
+                  key: dbPort
+            - name: DB_USER
+              valueFrom:
+                secretKeyRef:
+                  name: {{ template "chart.secretName" . }}
+                  key: dbUser
+            - name: DB_PASS
+              valueFrom:
+                secretKeyRef:
+                  name: {{ template "chart.secretName" . }}
+                  key: dbPass
+
+            - name: NETWORK
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ template "chart.configName" . }}
+                  key: network
+            - name: CORS_WHITELIST
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ template "chart.configName" . }}
+                  key: corsWhitelist
+            - name: SERVER_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ template "chart.configName" . }}
+                  key: serverPort
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+        - name: {{ .Chart.Name }}-worker
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default "latest" }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+            - name: DB_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: {{ template "chart.secretName" . }}
+                  key: dbName
+            - name: DB_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: {{ template "chart.secretName" . }}
+                  key: dbHost
+            - name: DB_PORT
+              valueFrom:
+                secretKeyRef:
+                  name: {{ template "chart.secretName" . }}
+                  key: dbPort
+            - name: DB_USER
+              valueFrom:
+                secretKeyRef:
+                  name: {{ template "chart.secretName" . }}
+                  key: dbUser
+            - name: DB_PASS
+              valueFrom:
+                secretKeyRef:
+                  name: {{ template "chart.secretName" . }}
+                  key: dbPass
+            - name: NETWORK
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ template "chart.configName" . }}
+                  key: network
+            - name: CORS_WHITELIST
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ template "chart.configName" . }}
+                  key: corsWhitelist
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
