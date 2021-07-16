@@ -1,3 +1,4 @@
+{{- if not .Values.config.existingConfigMap -}}
 kind: ConfigMap
 apiVersion: v1
 metadata:
@@ -6,3 +7,4 @@ data:
   network: "{{ .Values.config.network }}"
   serverPort: "{{ .Values.config.serverPort }}"
   corsWhitelist: "{{ .Values.config.corsWhitelist }}"
+{{- end -}}
