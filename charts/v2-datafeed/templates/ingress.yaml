@@ -47,4 +47,14 @@ spec:
                   number: {{ .Values.service.port | default 80 }}
             path: /*
             pathType: ImplementationSpecific
+    - host: {{ .Values.ingress.workerHost }}
+      http:
+        paths:
+          - backend:
+              service:
+                name: "{{ include "chart.fullname" . }}"
+                port:
+                  number: {{ .Values.service.workerPort | default 8080 }}
+            path: /*
+            pathType: ImplementationSpecific
 {{- end }}

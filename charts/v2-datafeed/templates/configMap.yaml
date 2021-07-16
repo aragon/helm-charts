@@ -5,6 +5,7 @@ metadata:
   name: {{ template "chart.configName" . }}
 data:
   network: "{{ .Values.config.network }}"
+  workerPort: "{{ .Values.config.workerPort }}"
   serverPort: "{{ .Values.config.serverPort }}"
   corsWhitelist: "{{ .Values.config.corsWhitelist }}"
 {{- end -}}

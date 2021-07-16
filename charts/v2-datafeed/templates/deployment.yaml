@@ -118,6 +118,11 @@ spec:
                 configMapKeyRef:
                   name: {{ template "chart.configName" . }}
                   key: corsWhitelist
+            - name: SERVER_PORT
+              vlueFrom:
+                configMapKeyRef:
+                  name: {{ template "chart.configName" . }}
+                  key: workerPort
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       {{- with .Values.nodeSelector }}

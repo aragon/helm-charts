@@ -11,5 +11,9 @@ spec:
       targetPort: {{ .Values.config.serverPort }}
       protocol: TCP
       name: server
+    - port: {{ .Values.service.workerPort | default 8080 }}
+      targetPort: {{ .Values.config.workerPort }}
+      protocol: TCP
+      name: worker
   selector:
     {{- include "chart.selectorLabels" . | nindent 4 }}
