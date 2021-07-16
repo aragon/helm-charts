@@ -119,7 +119,7 @@ spec:
                   name: {{ template "chart.configName" . }}
                   key: corsWhitelist
             - name: SERVER_PORT
-              vlueFrom:
+              valueFrom:
                 configMapKeyRef:
                   name: {{ template "chart.configName" . }}
                   key: workerPort
