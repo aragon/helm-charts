@@ -136,7 +136,7 @@ server:
     privateKey: ""
     sessionSecret: ""
     sessionSecure: ""
-    
+
 # Default values for the server deployment
 service:
   enabled: true
