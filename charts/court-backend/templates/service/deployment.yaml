@@ -20,7 +20,8 @@ spec:
       {{- end }}
       labels:
         {{- include "chart.selectorLabels" . | nindent 8 }}
-        aragon.org/court-backend-application: service
+        aragon.org/application: "{{ include "chart.name" . }}-service"
+        aragon.org/environment: "{{ .Values.environment }}"
     spec:
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
