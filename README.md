@@ -12,9 +12,13 @@ the latest versions of the packages.  You can then run `helm search repo
 aragon` to see the charts.
 
 ## Labels
-To better differentiate the charts different services/applications which are usually deployed from a monorepo, each deployment/statefulset/cronjob/etc gets a label called `aragon.org/application` which defines the actual service name.
+### aragon.org/application
+To better differentiate the charts different applications which are usually deployed from a monorepo, each deployment/statefulset/cronjob/etc gets a label called `aragon.org/application` which defines the actual service name.
 
-### For example
+#### For example
 court-backend generates 3 deployements (if all are activated in the values.yaml). Each deployement will add the label `aragon.org/application` with the values `"chart.name" + "-service"`,`"chart.name" + "-server"` or `"chart.name" + "-app"`.  
   
 chart name can be overwritten by the values `nameOverride` in the `values.yaml`.
+
+### aragon.org/environment
+To better differntiate the charts differents applications environments in the logging system and k8s itself. We add a label called `aragon.org/environment` with the value for the key `environment` in the `values.yaml` file.

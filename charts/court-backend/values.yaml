@@ -1,6 +1,10 @@
 # Default values for chart.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
+
+# Environment used to set the aragon.org/environment label
+environment: production
+
 ingress:
   enabled: false
   className: "nginx"
