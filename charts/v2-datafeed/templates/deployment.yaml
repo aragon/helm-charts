@@ -17,6 +17,7 @@ spec:
       {{- end }}
       labels:
         {{- include "chart.selectorLabels" . | nindent 8 }}
+        aragon.org/application: "{{ include "chart.name" . }}"
     spec:
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
