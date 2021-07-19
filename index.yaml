@@ -2,6 +2,18 @@ apiVersion: v1
 entries:
   court-backend:
   - apiVersion: v2
+    created: "2021-07-19T09:43:07.657484719Z"
+    description: A Helm chart for Aragon coourt backend (aka protocol-backend)
+    digest: 397bf4420085940085866a37630e1e93a4f4deb9fc8d2731e0b360191f1776b1
+    maintainers:
+    - email: mathias@aragon.org
+      name: mathewmeconry
+    name: court-backend
+    type: application
+    urls:
+    - https://github.com/aragon/helm-charts/releases/download/court-backend-0.1.4/court-backend-0.1.4.tgz
+    version: 0.1.4
+  - apiVersion: v2
     created: "2021-07-15T11:13:12.163388565Z"
     description: A Helm chart for Aragon coourt backend (aka protocol-backend)
     digest: 5613a59459e0a966c483c602f37e5fe82db8abcd61ba5e74db491dbca31d66bd
@@ -38,6 +50,19 @@ entries:
     - https://github.com/aragon/helm-charts/releases/download/court-backend-0.1.0/court-backend-0.1.0.tgz
     version: 0.1.0
   v2-datafeed:
+  - apiVersion: v2
+    appVersion: latest
+    created: "2021-07-19T09:43:07.801762315Z"
+    description: Helm chart for aragons v2-datafeed
+    digest: 4e79da38e25568cb47b418b9927b1f3f1b618e239fca0c5a4cc20e931a6294db
+    maintainers:
+    - email: mathias@aragon.org
+      name: mathewmeconry
+    name: v2-datafeed
+    type: application
+    urls:
+    - https://github.com/aragon/helm-charts/releases/download/v2-datafeed-0.1.4/v2-datafeed-0.1.4.tgz
+    version: 0.1.4
   - apiVersion: v2
     appVersion: latest
     created: "2021-07-16T17:17:50.772499678Z"
