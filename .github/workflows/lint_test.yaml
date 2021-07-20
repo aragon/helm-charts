@@ -25,8 +25,9 @@ jobs:
 
       - name: Run chart-testing (list-changed)
         id: list-changed
+        # ignores court-backend-v1 because of pull secrets which we don't wanna include here
         run: |
-          changed=$(ct list-changed --target-branch main)
+          changed=$(ct list-changed --target-branch main --excluded-charts court-backend-v1)
           if [[ -n "$changed" ]]; then
             echo "::set-output name=changed::true"
           fi
@@ -39,5 +40,4 @@ jobs:
         if: steps.list-changed.outputs.changed == 'true'
 
       - name: Run chart-testing (install)
-        # ignores court-backend-v1 because of pull secrets which we don't wanna include here
-        run: ct install --target-branch main --excluded-charts court-backend-v1
+        run: ct install --target-branch main
