@@ -1,0 +1,8 @@
+{{- if and (not .Values.server.config.existingConfigMap) .Values.server.enabled -}}
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: "{{ include "chart.fullname" . }}-server-config"
+data:
+  corsWhitelist:  {{ .Values.server.config.corsWhitelist  | default "" | quote }}
+{{- end -}}

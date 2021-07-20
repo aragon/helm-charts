@@ -1,0 +1,8 @@
+{{- if and (not .Values.service.config.existingConfigMap) .Values.service.enabled -}}
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: "{{ include "chart.fullname" . }}-service-config"
+data:
+  clientUrl: {{ .Values.service.config.clientUrl | default "" | quote }}
+{{- end -}}

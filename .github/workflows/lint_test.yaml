@@ -39,4 +39,5 @@ jobs:
         if: steps.list-changed.outputs.changed == 'true'
 
       - name: Run chart-testing (install)
-        run: ct install --target-branch main
+        # ignores court-backend-v1 because of pull secrets which we don't wanna include here
+        run: ct install --target-branch main --excluded-charts court-backend-v1
