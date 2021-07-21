@@ -2,6 +2,12 @@ name: Lint and Test Charts
 
 on: pull_request
 
+env:
+  # comma seperated list of charts that are excluded from installing for different reasons
+  # Explanation why these charts are excluded:
+  #     court-backend-v1 = pull secret is required, but won't be configured in the default chart
+  EXCLUDED_CHARTS_INSTALL: "court-backend-v1"
+
 jobs:
   lint-test:
     runs-on: ubuntu-latest
@@ -27,7 +33,7 @@ jobs:
         id: list-changed
         # ignores court-backend-v1 because of pull secrets which we don't wanna include here
         run: |
-          changed=$(ct list-changed --target-branch main --excluded-charts court-backend-v1)
+          changed=$(ct list-changed --target-branch main --excluded-charts $EXCLUDED_CHARTS_INSTALL)
           if [[ -n "$changed" ]]; then
             echo "::set-output name=changed::true"
           fi
@@ -40,4 +46,4 @@ jobs:
         if: steps.list-changed.outputs.changed == 'true'
 
       - name: Run chart-testing (install)
-        run: ct install --target-branch main
+        run: ct install --target-branch main --excluded-charts $EXCLUDED_CHARTS_INSTALL
