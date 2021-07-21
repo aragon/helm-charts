@@ -57,14 +57,4 @@ spec:
                   number: 80
             path: /*
             pathType: ImplementationSpecific
-    - host: {{ .Values.ingress.serviceHost }}
-      http:
-        paths:
-          - backend:
-              service:
-                name: "{{ include "chart.fullname" . }}-service"
-                port:
-                  number: 80
-            path: /*
-            pathType: ImplementationSpecific
 {{- end }}
