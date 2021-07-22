@@ -13,7 +13,6 @@ ingress:
     # kubernetes.io/tls-acme: "true"
   appHost: "app"
   serverHost: "server"
-  serviceHost: "service"
   tls: []
   #  - secretName: chart-example-tls
   #    hosts:
