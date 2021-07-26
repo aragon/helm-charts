@@ -113,6 +113,26 @@ spec:
                 configMapKeyRef:
                   name: {{ template "chart.serviceConfigName" . }}
                   key: web3PollingInterval
+            - name: DB_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: {{ template "chart.serviceSecretName" . }}
+                  key: dbHost
+            - name: DB_PORT
+              valueFrom:
+                secretKeyRef:
+                  name: {{ template "chart.serviceSecretName" . }}
+                  key: dbPort
+            - name: DB_USER
+              valueFrom:
+                secretKeyRef:
+                  name: {{ template "chart.serviceSecretName" . }}
+                  key: dbUser
+            - name: DB_PASS
+              valueFrom:
+                secretKeyRef:
+                  name: {{ template "chart.serviceSecretName" . }}
+                  key: dbPass
           args:
             - "npm"
             - "run"
