@@ -37,6 +37,7 @@ spec:
     {{- end }}
   {{- end }}
   rules:
+    {{- if .Values.app.enabled -}}
     - host: {{ .Values.ingress.appHost }}
       http:
         paths:
@@ -47,6 +48,8 @@ spec:
                   number: 80
             path: /*
             pathType: ImplementationSpecific
+    {{- end -}}
+    {{- if .Values.server.enabled -}}
     - host: {{ .Values.ingress.serverHost }}
       http:
         paths:
@@ -57,4 +60,5 @@ spec:
                   number: 80
             path: /*
             pathType: ImplementationSpecific
+    {{- end -}}
 {{- end }}
