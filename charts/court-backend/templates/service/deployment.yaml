@@ -83,6 +83,36 @@ spec:
                 secretKeyRef:
                   name: {{ template "chart.serviceSecretName" . }}
                   key: privateKey
+            - name: NETWORK
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ template "chart.serviceConfigName" . }}
+                  key: network
+            - name: COURT_ADDRESS
+              valueFrom:
+                secretKeyRef:
+                  name: {{ template "chart.serviceSecretName" . }}
+                  key: courtAddress
+            - name: RPC
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ template "chart.serviceConfigName" . }}
+                  key: rpc
+            - name: GAS
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ template "chart.serviceConfigName" . }}
+                  key: gas
+            - name: GAS_PRICE
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ template "chart.serviceConfigName" . }}
+                  key: gasPrice
+            - name: WEB3_POLLING_INTERVAL
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ template "chart.serviceConfigName" . }}
+                  key: web3PollingInterval
           args:
             - "npm"
             - "run"
