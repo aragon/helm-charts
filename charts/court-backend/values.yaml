@@ -171,9 +171,15 @@ service:
     clientUrl: ""
     emailFromDefault: ""
     postmarkTemplateAliasVerify: ""
+    gas: "1"
+    gasPrice: "1"
+    web3PollingInterval: "1"
+    network: "mainnet"
+    rpc: ""
 
   secret:
     # existingSecret: ""
     postmarkApiToken: ""
     etherscanApiKey: ""
     privateKey: ""
+    courtAddress: ""

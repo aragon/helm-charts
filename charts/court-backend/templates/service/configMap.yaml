@@ -7,4 +7,9 @@ data:
   clientUrl: {{ .Values.service.config.clientUrl | default "" | quote }}
   emailFromDefault: {{ .Values.service.config.emailFromDefault | default "" | quote }}
   postmarkTemplateAliasVerify: {{ .Values.service.config.postmarkTemplateAliasVerify | default "" | quote }}
+  network: {{ .Values.service.config.network | default "" | quote }}
+  rpc: {{ .Values.service.config.rpc | default "" | quote }}
+  gas: {{ .Values.service.config.gas | default "" | quote }}
+  gasPrice: {{ .Values.service.config.gasPrice | default "" | quote }}
+  web3PollingInterval: {{ .Values.service.config.web3PollingInterval | default "" | quote }}
 {{- end -}}
