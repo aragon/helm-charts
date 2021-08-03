@@ -123,6 +123,11 @@ spec:
                 secretKeyRef:
                   name: {{ template "chart.serviceSecretName" . }}
                   key: dbPort
+            - name: DB_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: {{ template "chart.serviceSecretName" . }}
+                  key: dbName
             - name: DB_USER
               valueFrom:
                 secretKeyRef:
