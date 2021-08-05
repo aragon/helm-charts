@@ -169,6 +169,11 @@ spec:
                 configMapKeyRef:
                   name: {{ template "chart.serverConfigName" . }}
                   key: postmarkTemplateAliasVerify
+            - name: CLIENT_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ template "chart.serverConfigName" . }}
+                  key: clientUrl
           args:
             - "npm"
             - "run"
