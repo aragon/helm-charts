@@ -5,6 +5,8 @@ metadata:
   name: "{{ include "chart.fullname" . }}-service"
   labels:
     {{- include "chart.labels" . | nindent 4 }}
+    aragon.org/application: "{{ include "chart.name" . }}-service"
+    aragon.org/environment: "{{ .Values.environment }}"
 spec:
   {{- if not .Values.service.autoscaling.enabled }}
   replicas: {{ .Values.service.replicaCount }}
