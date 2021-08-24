@@ -4,6 +4,8 @@ metadata:
   name: "{{ include "chart.fullname" . }}"
   labels:
     {{- include "chart.labels" . | nindent 4 }}
+    aragon.org/application: "{{ include "chart.name" . }}"
+    aragon.org/environment: "{{ .Values.environment }}"
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
