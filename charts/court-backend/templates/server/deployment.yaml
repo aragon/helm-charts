@@ -42,6 +42,8 @@ spec:
               containerPort: 8000
             - name: "hot-reloading"
               containerPort: 35729
+            - name: "metrics"
+              containerPort: 9091
           env:
             - name: SERVER_PORT
               value: "8000"
