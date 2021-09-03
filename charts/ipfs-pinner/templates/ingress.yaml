@@ -40,10 +40,12 @@ spec:
     - host: {{ .Values.ingress.serverHost }}
       http:
         paths:
-          - backend:
-              serviceName: "{{ include "chart.fullname" . }}-server"
-              servicePort: 8000
-            path: /*
+          - path: /*
             pathType: ImplementationSpecific
+            backend:
+              service:
+                name: "{{ include "chart.fullname" . }}-server"
+                port:
+                  number: 8000
   {{- end -}}
 {{- end }}
