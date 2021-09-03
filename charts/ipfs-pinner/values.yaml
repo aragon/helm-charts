@@ -1,0 +1,66 @@
+environment: production
+
+server:
+  enabled: true
+  autoscaling:
+    enabled: false
+  replicaCount: 1
+  podAnnotations: {}
+  resources: {}
+  nodeSelector: {}
+  affinity: {}
+  tolerations: []
+
+
+worker:
+  enabled: true
+  autoscaling:
+    enabled: false
+  replicaCount: 1
+  podAnnotations: {}
+  resources: {}
+  nodeSelector: {}
+  affinity: {}
+  tolerations: []
+
+image:
+  repository: ghcr.io/aragonone/ipfs-pinner/production
+  tag: v1.0.2
+  pullPolicy: IfNotPresent
+  pullSecrets: {}
+
+config:
+  corsWhitelist: "*"
+  network: mainnet
+  ipfs_api_url: http://ipfs:5001
+
+secret:
+  # existingSecretName: ""
+  db_host: ""
+  db_name: ""
+  db_pass: ""
+  db_port: ""
+  db_user: ""
+  etherscan_api_key: ""
+
+
+securityContext:
+  capabilities:
+    drop:
+    - ALL
+  readOnlyRootFilesystem: false
+  runAsNonRoot: false
+
+podSecurityContext: {}
+
+ingress:
+  enabled: false
+  className: "nginx"
+  annotations: {}
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+  serverHost: "server"
+  tls: []
+  #  - secretName: chart-example-tls
+  #    hosts:
+  #      - chart-example.local
