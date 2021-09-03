@@ -60,3 +60,14 @@ Create the name of the service account to use
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
 {{- end }}
+
+{{/*
+Get the secret name.
+*/}}
+{{- define "chart.secretName" -}}
+{{- if .Values.secret.existingSecretName -}}
+{{- printf "%s" .Values.secret.existingSecretName -}}
+{{- else -}}
+{{- printf "%s-secret" (include "chart.fullname" .) -}}
+{{- end -}}
+{{- end -}}

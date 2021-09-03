@@ -45,32 +45,32 @@ spec:
             - name: DB_HOST
               valueFrom:
                 secretKeyRef:
-                  name: "{{ include "chart.fullname" . }}"
+                  name: {{ template "chart.secretName" . }}
                   key: db_host
             - name: DB_NAME
               valueFrom:
                 secretKeyRef:
-                  name: "{{ include "chart.fullname" . }}"
+                  name: {{ template "chart.secretName" . }}
                   key: db_name
             - name: DB_PASS
               valueFrom:
                 secretKeyRef:
-                  name: "{{ include "chart.fullname" . }}"
+                  name: {{ template "chart.secretName" . }}
                   key: db_pass
             - name: DB_PORT
               valueFrom:
                 secretKeyRef:
-                  name: "{{ include "chart.fullname" . }}"
+                  name: {{ template "chart.secretName" . }}
                   key: db_port
             - name: DB_USER
               valueFrom:
                 secretKeyRef:
-                  name: "{{ include "chart.fullname" . }}"
+                  name: {{ template "chart.secretName" . }}
                   key: db_user
             - name: ETHERSCAN_API_KEY
               valueFrom:
                 secretKeyRef:
-                  name: "{{ include "chart.fullname" . }}"
+                  name: {{ template "chart.secretName" . }}
                   key: etherscan_api_key
             - name: ETHERSCAN_NETWORK
               value: "{{ .Values.config.network }}"
