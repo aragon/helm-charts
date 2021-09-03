@@ -1,0 +1,105 @@
+{{- if .Values.server.enabled -}}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: "{{ include "chart.fullname" . }}-server"
+  labels:
+    {{- include "chart.labels" . | nindent 4 }}
+    aragon.org/application: "{{ include "chart.name" . }}-server"
+    aragon.org/environment: "{{ .Values.environment }}"
+spec:
+  {{- if not .Values.server.autoscaling.enabled }}
+  replicas: {{ .Values.server.replicaCount }}
+  {{- end }}
+  selector:
+    matchLabels:
+      {{- include "chart.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.server.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "chart.selectorLabels" . | nindent 8 }}
+        aragon.org/application: "{{ include "chart.name" . }}-server"
+        aragon.org/environment: "{{ .Values.environment }}"
+    spec:
+      {{- with .Values.image.pullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default "latest" }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - containerPort: 8000
+              name: server
+              protocol: TCP
+            - containerPort: 9091
+              name: server-metrics
+              protocol: TCP
+          env:
+            - name: CORS_WHITELIST
+              value: "{{ .Values.config.corsWhitelist }}"
+            - name: DB_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: "{{ include "chart.fullname" . }}"
+                  key: db_host
+            - name: DB_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: "{{ include "chart.fullname" . }}"
+                  key: db_name
+            - name: DB_PASS
+              valueFrom:
+                secretKeyRef:
+                  name: "{{ include "chart.fullname" . }}"
+                  key: db_pass
+            - name: DB_PORT
+              valueFrom:
+                secretKeyRef:
+                  name: "{{ include "chart.fullname" . }}"
+                  key: db_port
+            - name: DB_USER
+              valueFrom:
+                secretKeyRef:
+                  name: "{{ include "chart.fullname" . }}"
+                  key: db_user
+            - name: ETHERSCAN_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: "{{ include "chart.fullname" . }}"
+                  key: etherscan_api_key
+            - name: ETHERSCAN_NETWORK
+              value: "{{ .Values.config.network }}"
+            - name: IPFS_API_URL
+              value: "{{ .Values.config.ipfs_api_url }}"
+            - name: SERVER_METRICS_PORT
+              value: "9091"
+            - name: SERVER_PORT
+              value: "8000"
+          args:
+            - "yarn"
+            - "start:server"
+          resources:
+            {{- toYaml .Values.server.resources | nindent 12 }}
+      {{- with .Values.server.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.server.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.server.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+{{- end -}}

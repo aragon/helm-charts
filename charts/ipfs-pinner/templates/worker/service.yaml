@@ -1,0 +1,19 @@
+{{- if .Values.worker.enabled -}}
+apiVersion: v1
+kind: Service
+metadata:
+  name: "{{ include "chart.fullname" . }}-worker"
+  labels:
+    {{- include "chart.labels" . | nindent 4 }}
+spec:
+  type: ClusterIP
+  ports:
+    - port: 9081
+      targetPort: 9081
+      protocol: TCP
+      name: metrics
+  selector:
+    {{- include "chart.selectorLabels" . | nindent 4 }}
+    aragon.org/application: "{{ include "chart.name" . }}-worker"
+    aragon.org/environment: "{{ .Values.environment }}"
+{{- end -}}
