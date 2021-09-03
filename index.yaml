@@ -184,6 +184,18 @@ entries:
     version: 0.1.0
   ipfs-pinner:
   - apiVersion: v2
+    created: "2021-09-03T13:29:45.139192871Z"
+    description: helm chart to deploy aragons ipfs-pinner
+    digest: 7877888e703693c48b0c9d0bd1e91d4838144b3a2e5f00c058cc4b3c84d4d6cb
+    maintainers:
+    - email: mathias@aragon.org
+      name: mathewmeconry
+    name: ipfs-pinner
+    type: application
+    urls:
+    - https://github.com/aragon/helm-charts/releases/download/ipfs-pinner-0.1.4/ipfs-pinner-0.1.4.tgz
+    version: 0.1.4
+  - apiVersion: v2
     created: "2021-09-03T13:12:29.649149747Z"
     description: helm chart to deploy aragons ipfs-pinner
     digest: 33877926a809534f48362ed21e552fdded54bb75a03e30a402cc83497005a1f4
