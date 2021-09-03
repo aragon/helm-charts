@@ -75,7 +75,7 @@ spec:
             - name: ETHERSCAN_NETWORK
               value: "{{ .Values.config.network }}"
             - name: IPFS_API_URL
-              value: "{{ .Values.config.ipfsurl }}"
+              value: "{{ .Values.config.ipfs_api_url }}"
             - name: WORKER_METRICS_PORT
               value: "9081"
           args:
