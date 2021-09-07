@@ -39,34 +39,34 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - name: "heartbeat"
-              containerPort: 9081
+              containerPort: {{ .Values.service.config.heartbeatPort | default 8081 }}
             - name: "reveal"
-              containerPort: 9082
+              containerPort: {{ .Values.service.config.revealPort | default 9082 }}
             - name: "settlements"
-              containerPort: 9083
-            - name: "monitor-keeper"
-              containerPort: 9084
-            - name: "notifcation-scanner"
-              containerPort: 9085
-            - name: "notification-sender"
-              containerPort: 9086
-            - name: "contract-monitor"
-              containerPort: 9087
+              containerPort: {{ .Values.service.config.settlementsPort | default 9083 }}
+            - name: "monitorkeeper"
+              containerPort: {{ .Values.service.config.monitorKeeperPort | default 9084 }}
+            - name: "notifyscan"
+              containerPort: {{ .Values.service.config.notificationScannerPort | default 9085 }}
+            - name: "notifysen"
+              containerPort: {{ .Values.service.config.notificationSenderPort | default 9086 }}
+            - name: "contractmonitor"
+              containerPort: {{ .Values.service.config.contractMonitorPort | default 9087 }}
           env:
             - name: SERVICE_PORT_HEARTBEAT
-              value: "9081"
+              value: {{ .Values.service.config.heartbeatPort | default 8081 | quote }}
             - name: SERVICE_PORT_REVEAL
-              value: "9082"
+              value: {{ .Values.service.config.revealPort | default 9082 | quote }}
             - name: SERVICE_PORT_SETTLEMENTS
-              value: "9083"
+              value: {{ .Values.service.config.settlementsPort | default 9083 | quote }}
             - name: SERVICE_PORT_MONITOR_KEEPER
-              value: "9084"
+              value: {{ .Values.service.config.monitorKeeperPort | default 9084 | quote }}
             - name: SERVICE_PORT_NOTIFICATION_SCANNER
-              value: "9085"
+              value: {{ .Values.service.config.notificationScannerPort | default 9085 | quote }}
             - name: SERVICE_PORT_NOTIFICATION_SENDER
-              value: "9086"
+              value: {{ .Values.service.config.notificationSenderPort | default 9086 | quote }}
             - name: SERVICE_PORT_CONTRACT_MONITOR
-              value: "9087"
+              value: {{ .Values.service.config.contractMonitorPort | default 9087 | quote }}
             - name: ETHERSCAN_API_KEY
               valueFrom:
                 secretKeyRef:
@@ -82,10 +82,62 @@ spec:
                 secretKeyRef:
                   name: {{ template "chart.serviceSecretName" . }}
                   key: privateKey
+            - name: EMAIL_FROM_DEFAULT
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ template "chart.serviceConfigName" . }}
+                  key: emailFromDefault
+            - name: POSTMARK_TEMPLATE_ALIAS_VERIFY
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ template "chart.serviceConfigName" . }}
+                  key: postmarkTemplateAliasVerify
+            - name: NETWORK
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ template "chart.serviceConfigName" . }}
+                  key: network
+            - name: COURT_ADDRESS
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ template "chart.serviceConfigName" . }}
+                  key: courtAddress
+            - name: RPC
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ template "chart.serviceConfigName" . }}
+                  key: rpc
+            - name: GAS
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ template "chart.serviceConfigName" . }}
+                  key: gas
+            - name: GAS_PRICE
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ template "chart.serviceConfigName" . }}
+                  key: gasPrice
+            - name: WEB3_POLLING_INTERVAL
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ template "chart.serviceConfigName" . }}
+                  key: web3PollingInterval
           args:
             - "npm"
             - "run"
             - "start:services"
+          readinessProbe:
+              httpGet:
+                  path: /
+                  port: {{ .Values.service.config.heartbeatPort | default 8081 }}
+              initialDelaySeconds: 30
+              periodSeconds: 30
+          livenessProbe:
+              httpGet:
+                  path: /
+                  port: {{ .Values.service.config.heartbeatPort | default 8081 }}
+              initialDelaySeconds: 30
+              periodSeconds: 30
           resources:
             {{- toYaml .Values.service.resources | nindent 12 }}
       {{- with .Values.service.nodeSelector }}

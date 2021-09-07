@@ -22,7 +22,7 @@ ingress:
 
 imagePullSecrets: []
 image:
-  repository: docker.pkg.github.com/aragonone/court-backend/mainnet
+  repository: ghcr.io/aragonone/court-backend/mainnet
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: "latest"
@@ -113,6 +113,17 @@ server:
   config:
     # existingConfigMap: ""
     corsWhitelist: ""
+    port: ""
+    metricsPort: ""
+    emailFromDefault: ""
+    postmarkTemplateAliasVerify: ""
+    network: ""
+    courtAddress: ""
+    rpc: ""
+    gas: ""
+    gasPrice: ""
+    web3PollingInterval: ""
+    clientUrl: ""
 
   secret:
     # existingSecret: ""
@@ -126,6 +137,8 @@ server:
     emailJwtPrivate: ""
     sessionSecret: ""
     sessionSecure: ""
+    postmarkServerApiToken: ""
+    privateKey: ""
 
 # Default values for the server deployment
 service:
@@ -159,7 +172,22 @@ service:
 
   config:
     # existingConfigMap: ""
+    heartbeatPort: ""
+    revealPort: ""
+    settlementsPort: ""
+    monitorKeeperPort: ""
+    notificationScannerPort: ""
+    notificationSenderPort: ""
+    contractMonitorPort: ""
     clientUrl: ""
+    emailFromDefault: ""
+    postmarkTemplateAliasVerify: ""
+    network: ""
+    courtAddress: ""
+    rpc: ""
+    gas: ""
+    gasPrice: ""
+    web3PollingInterval: ""
 
   secret:
     # existingSecret: ""
