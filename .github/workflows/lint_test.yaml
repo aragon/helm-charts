@@ -5,8 +5,7 @@ on: pull_request
 env:
   # comma seperated list of charts that are excluded from installing for different reasons
   # Explanation why these charts are excluded:
-  #     court-backend-v1 = pull secret is required, but won't be configured in the default chart
-  EXCLUDED_CHARTS_INSTALL: "court-backend-v1"
+  EXCLUDED_CHARTS_INSTALL: ""
 
 jobs:
   lint-test:
