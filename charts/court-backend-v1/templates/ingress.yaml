@@ -1,11 +1,5 @@
 {{- if .Values.ingress.enabled -}}
 {{- $fullName := include "chart.fullname" . -}}
-{{- $svcPort := .Values.service.port -}}
-{{- if and .Values.ingress.className (not (semverCompare ">=1.18-0" .Capabilities.KubeVersion.GitVersion)) }}
-  {{- if not (hasKey .Values.ingress.annotations "kubernetes.io/ingress.class") }}
-  {{- $_ := set .Values.ingress.annotations "kubernetes.io/ingress.class" .Values.ingress.className}}
-  {{- end }}
-{{- end }}
 {{- if semverCompare ">=1.19-0" .Capabilities.KubeVersion.GitVersion -}}
 apiVersion: networking.k8s.io/v1
 {{- else if semverCompare ">=1.14-0" .Capabilities.KubeVersion.GitVersion -}}
@@ -37,6 +31,7 @@ spec:
     {{- end }}
   {{- end }}
   rules:
+    {{- if .Values.app.enabled -}}
     - host: {{ .Values.ingress.appHost }}
       http:
         paths:
@@ -47,6 +42,8 @@ spec:
                   number: 80
             path: /*
             pathType: ImplementationSpecific
+    {{- end -}}
+    {{- if .Values.server.enabled -}}
     - host: {{ .Values.ingress.serverHost }}
       http:
         paths:
@@ -54,17 +51,8 @@ spec:
               service:
                 name: "{{ include "chart.fullname" . }}-server"
                 port:
-                  number: 80
+                  name: http
             path: /*
             pathType: ImplementationSpecific
-    - host: {{ .Values.ingress.serviceHost }}
-      http:
-        paths:
-          - backend:
-              service:
-                name: "{{ include "chart.fullname" . }}-service"
-                port:
-                  number: 80
-            path: /*
-            pathType: ImplementationSpecific
+    {{- end -}}
 {{- end }}

@@ -9,32 +9,32 @@ spec:
   type: ClusterIP
   ports:
     - name: "heartbeat"
-      port: 9081
-      targetPort: 9081
+      port: {{ .Values.service.config.heartbeatPort | default 8081 }}
+      targetPort: {{ .Values.service.config.heartbeatPort | default 8081 }}
       protocol: TCP
     - name: "reveal"
-      port: 9082
-      targetPort: 9082
+      port: {{ .Values.service.config.revealPort | default 9082 }}
+      targetPort: {{ .Values.service.config.revealPort | default 9082 }}
       protocol: TCP
     - name: "settlements"
-      port: 9083
-      targetPort: 9083
+      port: {{ .Values.service.config.settlementsPort | default 9083 }}
+      targetPort: {{ .Values.service.config.settlementsPort | default 9083 }}
       protocol: TCP
     - name: "monitor-keeper"
-      port: 9084
-      targetPort: 9084
+      port: {{ .Values.service.config.monitorKeeperPort | default 9084 }}
+      targetPort: {{ .Values.service.config.monitorKeeperPort | default 9084 }}
       protocol: TCP
     - name: "notifcation-scanner"
-      port: 9085
-      targetPort: 9085
+      port: {{ .Values.service.config.notificationScannerPort | default 9085 }}
+      targetPort: {{ .Values.service.config.notificationScannerPort | default 9085 }}
       protocol: TCP
     - name: "notification-sender"
-      port: 9086
-      targetPort: 9086
+      port: {{ .Values.service.config.notificationSenderPort | default 9086 }}
+      targetPort: {{ .Values.service.config.notificationSenderPort | default 9086 }}
       protocol: TCP
     - name: "contract-monitor"
-      port: 9087
-      targetPort: 9087
+      port: {{ .Values.service.config.contractMonitorPort | default 9087 }}
+      targetPort: {{ .Values.service.config.contractMonitorPort | default 9087 }}
       protocol: TCP
   selector:
     {{- include "chart.selectorLabels" . | nindent 4 }}

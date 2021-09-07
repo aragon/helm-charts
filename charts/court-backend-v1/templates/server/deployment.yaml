@@ -39,12 +39,12 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - name: "app"
-              containerPort: 8000
-            - name: "hot-reloading"
-              containerPort: 35729
+              containerPort: {{ .Values.server.config.port  | default 8000 }}
+            - name: "metrics"
+              containerPort: {{ .Values.server.config.metricsPort  | default 9091 }}
           env:
             - name: SERVER_PORT
-              value: "8000"
+              value: {{ .Values.server.config.port  | default 8000 | quote }}
             - name: DB_NAME
               valueFrom:
                 secretKeyRef:
@@ -100,10 +100,73 @@ spec:
                 secretKeyRef:
                   name: {{ template "chart.serverSecretName" . }}
                   key: emailJwtPrivate
+            - name: POSTMARK_SERVER_API_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: {{ template "chart.serverSecretName" . }}
+                  key: postmarkServerApiToken
+            - name: SERVER_METRICS_PORT
+              value: {{ .Values.server.config.metricsPort  | default 9091 | quote }}
+            - name: EMAIL_FROM_DEFAULT
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ template "chart.serverConfigName" . }}
+                  key: emailFromDefault
+            - name: POSTMARK_TEMPLATE_ALIAS_VERIFY
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ template "chart.serverConfigName" . }}
+                  key: postmarkTemplateAliasVerify
+            - name: NETWORK
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ template "chart.serverConfigName" . }}
+                  key: network
+            - name: COURT_ADDRESS
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ template "chart.serverConfigName" . }}
+                  key: courtAddress
+            - name: RPC
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ template "chart.serverConfigName" . }}
+                  key: rpc
+            - name: PRIVATE_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: {{ template "chart.serverSecretName" . }}
+                  key: privateKey
+            - name: GAS
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ template "chart.serverConfigName" . }}
+                  key: gas
+            - name: GAS_PRICE
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ template "chart.serverConfigName" . }}
+                  key: gasPrice
+            - name: WEB3_POLLING_INTERVAL
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ template "chart.serverConfigName" . }}
+                  key: web3PollingInterval
+            - name: CLIENT_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ template "chart.serverConfigName" . }}
+                  key: clientUrl
           args:
             - "npm"
             - "run"
             - "start:server"
+          livenessProbe:
+              httpGet:
+                  path: /
+                  port: {{ .Values.server.config.port  | default 8000 }}
+              initialDelaySeconds: 30
+              periodSeconds: 30
           resources:
             {{- toYaml .Values.server.resources | nindent 12 }}
       {{- with .Values.server.nodeSelector }}
