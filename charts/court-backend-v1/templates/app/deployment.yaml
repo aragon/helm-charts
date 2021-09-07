@@ -55,12 +55,6 @@ spec:
             - "npm"
             - "run"
             - "start:app"
-          readinessProbe:
-              httpGet:
-                  path: /
-                  port: 3000
-              initialDelaySeconds: 30
-              periodSeconds: 30
           livenessProbe:
               httpGet:
                   path: /

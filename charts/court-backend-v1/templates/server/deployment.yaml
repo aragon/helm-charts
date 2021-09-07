@@ -161,12 +161,6 @@ spec:
             - "npm"
             - "run"
             - "start:server"
-          readinessProbe:
-              httpGet:
-                  path: /
-                  port: {{ .Values.server.config.port  | default 8000 }}
-              initialDelaySeconds: 30
-              periodSeconds: 30
           livenessProbe:
               httpGet:
                   path: /

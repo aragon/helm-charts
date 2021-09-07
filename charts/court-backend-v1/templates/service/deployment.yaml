@@ -126,12 +126,6 @@ spec:
             - "npm"
             - "run"
             - "start:services"
-          readinessProbe:
-              httpGet:
-                  path: /
-                  port: {{ .Values.service.config.heartbeatPort | default 8081 }}
-              initialDelaySeconds: 30
-              periodSeconds: 30
           livenessProbe:
               httpGet:
                   path: /
