@@ -6,14 +6,15 @@
 environment: production
 
 ingress:
-  enabled: false
+  enabled: true
   className: "nginx"
   annotations: {}
     # kubernetes.io/ingress.class: nginx
     # kubernetes.io/tls-acme: "true"
-  appHost: "app"
-  serverHost: "server"
-  serviceHost: "service"
+  appHosts:
+    - "app"
+  serverHosts:
+    - "server"
   tls: []
   #  - secretName: chart-example-tls
   #    hosts:

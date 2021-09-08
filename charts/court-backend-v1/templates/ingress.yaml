@@ -32,27 +32,31 @@ spec:
   {{- end }}
   rules:
     {{- if .Values.app.enabled -}}
-    - host: {{ .Values.ingress.appHost }}
+    {{- range .Values.ingress.appHosts }}
+    - host: {{ . }}
       http:
         paths:
           - backend:
               service:
-                name: "{{ include "chart.fullname" . }}-app"
+                name: "{{ $fullName }}-app"
                 port:
                   number: 80
             path: /*
             pathType: ImplementationSpecific
     {{- end -}}
+    {{- end -}}
     {{- if .Values.server.enabled -}}
-    - host: {{ .Values.ingress.serverHost }}
+    {{- range .Values.ingress.serverHosts }}
+    - host: {{ . }}
       http:
         paths:
           - backend:
               service:
-                name: "{{ include "chart.fullname" . }}-server"
+                name: "{{ $fullName }}-server"
                 port:
-                  name: http
+                  number: 80
             path: /*
             pathType: ImplementationSpecific
+    {{- end -}}
     {{- end -}}
 {{- end }}
