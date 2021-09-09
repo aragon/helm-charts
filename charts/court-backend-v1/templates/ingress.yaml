@@ -54,7 +54,7 @@ spec:
               service:
                 name: "{{ $fullName }}-server"
                 port:
-                  number: 80
+                  name: "http"
             path: /*
             pathType: ImplementationSpecific
     {{- end -}}
