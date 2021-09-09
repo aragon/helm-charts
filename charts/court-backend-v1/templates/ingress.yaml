@@ -54,7 +54,7 @@ spec:
               service:
                 name: "{{ $fullName }}-server"
                 port:
-                  number: 80
+                  number: {{ .Values.server.config.port  | default 8000 }}
             path: /*
             pathType: ImplementationSpecific
     {{- end -}}
