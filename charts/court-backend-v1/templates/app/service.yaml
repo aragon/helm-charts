@@ -5,6 +5,10 @@ metadata:
   name: "{{ include "chart.fullname" . }}-app"
   labels:
     {{- include "chart.labels" . | nindent 4 }}
+  {{- with .Values.app.service.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
 spec:
   type: ClusterIP
   ports:
