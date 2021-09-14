@@ -161,12 +161,14 @@ spec:
             - "npm"
             - "run"
             - "start:server"
-          livenessProbe:
+          {{- if .Values.server.checkReadiness }}
+          readinessProbe:
               httpGet:
                   path: /
                   port: {{ .Values.server.config.port  | default 8000 }}
               initialDelaySeconds: 120
               periodSeconds: 30
+          {{- end }}
           resources:
             {{- toYaml .Values.server.resources | nindent 12 }}
       {{- with .Values.server.nodeSelector }}

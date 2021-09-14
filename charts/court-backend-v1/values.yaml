@@ -47,6 +47,7 @@ securityContext:
 # Default values for the app deployment
 app:
   enabled: true
+  checkReadiness: false
   replicaCount: 1
 
   service:
@@ -87,6 +88,7 @@ app:
 # Default values for the server deployment
 server:
   enabled: true
+  checkReadiness: false
   replicaCount: 1
 
   service:
@@ -150,6 +152,7 @@ server:
 # Default values for the server deployment
 service:
   enabled: true
+  checkReadiness: false
   replicaCount: 1
 
   service:
