@@ -159,6 +159,18 @@ entries:
     version: 0.1.0
   court-backend-v1:
   - apiVersion: v2
+    created: "2021-09-14T08:48:23.366019522Z"
+    description: A Helm chart for Aragon court v1
+    digest: bb69b9a837433e2904c323ec7d4986a19be2cbe6594a4b64df7ef686a5286715
+    maintainers:
+    - email: mathias@aragon.org
+      name: mathewmeconry
+    name: court-backend-v1
+    type: application
+    urls:
+    - https://github.com/aragon/helm-charts/releases/download/court-backend-v1-0.1.6/court-backend-v1-0.1.6.tgz
+    version: 0.1.6
+  - apiVersion: v2
     created: "2021-09-09T07:10:37.266011726Z"
     description: A Helm chart for Aragon court v1
     digest: a9998d9af3b39df6a13d63fd39274fc1d0b689fc46a42599a3299f60a7afcc24
