@@ -55,12 +55,14 @@ spec:
             - "npm"
             - "run"
             - "start:app"
-          livenessProbe:
+          {{- if .Values.app.checkReadiness }}
+          readinessProbe:
               httpGet:
                   path: /
                   port: 3000
               initialDelaySeconds: 120
               periodSeconds: 30
+          {{- end }}
           resources:
             {{- toYaml .Values.app.resources | nindent 12 }}
       {{- with .Values.app.nodeSelector }}

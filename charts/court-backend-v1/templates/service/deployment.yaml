@@ -126,12 +126,14 @@ spec:
             - "npm"
             - "run"
             - "start:services"
-          livenessProbe:
+          {{- if .Values.service.checkReadiness }}
+          readinessProbe:
               httpGet:
                   path: /
                   port: {{ .Values.service.config.heartbeatPort | default 8081 }}
               initialDelaySeconds: 120
               periodSeconds: 30
+          {{- end }}
           resources:
             {{- toYaml .Values.service.resources | nindent 12 }}
       {{- with .Values.service.nodeSelector }}
