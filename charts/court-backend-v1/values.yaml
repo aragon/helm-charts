@@ -201,6 +201,7 @@ service:
     gas: ""
     gasPrice: ""
     web3PollingInterval: ""
+    postmarkServerApiToken: ""
 
   secret:
     # existingSecret: ""

@@ -122,6 +122,11 @@ spec:
                 configMapKeyRef:
                   name: {{ template "chart.serviceConfigName" . }}
                   key: web3PollingInterval
+            - name: POSTMARK_SERVER_API_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: {{ template "chart.serviceSecretName" . }}
+                  key: postmarkServerApiToken
           args:
             - "npm"
             - "run"
