@@ -207,3 +207,8 @@ service:
     # existingSecret: ""
     etherscanApiKey: ""
     privateKey: ""
+    dbName: ""
+    dbHost: ""
+    dbPort: ""
+    dbUser: ""
+    dbPass: ""
