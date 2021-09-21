@@ -10,6 +10,7 @@ nodeSelector: {}
 affinity: {}
 tolerations: []
 
+checkReadiness: false
 service:
   annotations: {}
 
