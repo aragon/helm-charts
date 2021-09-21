@@ -19,7 +19,7 @@ ingress:
   annotations: {}
   className: ''
   tls: []
-  hosts: 
+  hosts:
     - 'notification-service'
 
 image:
