@@ -1,0 +1,49 @@
+environment: "production"
+
+replicaCount: 1
+podAnnotations: {}
+imagePullSecrets: {}
+podSecurityContext: {}
+securityContext: {}
+resources: {}
+nodeSelector: {}
+affinity: {}
+tolerations: []
+
+service:
+  annotations: {}
+
+ingress:
+  enabled: false
+  annotations: {}
+  className: ''
+  tls: []
+  host: 'notification-service'
+
+image:
+  repository: "gcr.io/kubernetes-charts-ci/notification-service"
+  tag: "v0.1.0"
+  pullPolicy: IfNotPresent
+
+secret:
+  # existingSecret: ""
+  jwt_key: ""
+  pg_connection_string: ""
+  postmark_server_api_token: ""
+  db_host: ""
+  db_name: ""
+  db_pass: ""
+  db_port: ""
+  db_user: ""
+
+config:
+  # existingConfigMap: ""
+  debug_knex: ""
+  debug_scanner: ""
+  debug_subscriptions: ""
+  eth_node_mainnet: ""
+  eth_node_rinkeby: ""
+  host: ""
+  ipfs_node: ""
+  metrics_port: ""
+  node_env: ""
