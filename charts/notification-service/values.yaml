@@ -1,0 +1,51 @@
+environment: "production"
+
+replicaCount: 1
+podAnnotations: {}
+imagePullSecrets: {}
+podSecurityContext: {}
+securityContext: {}
+resources: {}
+nodeSelector: {}
+affinity: {}
+tolerations: []
+
+checkReadiness: false
+checkLiveness: false
+service:
+  annotations: {}
+
+ingress:
+  enabled: false
+  annotations: {}
+  className: ''
+  tls: []
+  hosts:
+    - 'notification-service'
+
+image:
+  repository: "ghcr.io/aragonone/notification-service/app"
+  tag: "v0.1.4"
+  pullPolicy: IfNotPresent
+
+secret:
+  # existingSecret: ""
+  jwt_key: ""
+  pg_connection_string: ""
+  postmark_server_api_token: ""
+  db_host: ""
+  db_name: ""
+  db_pass: ""
+  db_port: ""
+  db_user: ""
+
+config:
+  # existingConfigMap: ""
+  debug_knex: ""
+  debug_scanner: ""
+  debug_subscriptions: ""
+  eth_node_mainnet: ""
+  eth_node_rinkeby: ""
+  host: ""
+  ipfs_node: ""
+  node_env: ""

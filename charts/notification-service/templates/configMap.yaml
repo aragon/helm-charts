@@ -1,0 +1,16 @@
+{{- if not .Values.config.existingConfigMap -}}
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: {{ template "chart.configName" . }}
+data:
+  debug_knex: "{{ .Values.config.debug_knex | default "" }}"
+  debug_scanner: "{{ .Values.config.debug_scanner | default "" }}"
+  debug_subscriptions: "{{ .Values.config.debug_subscriptions | default "" }}"
+  eth_node_mainnet: "{{ .Values.config.eth_node_mainnet | default "" }}"
+  eth_node_rinkeby: "{{ .Values.config.eth_node_rinkeby | default "" }}"
+  host: "{{ .Values.config.host | default "" }}"
+  ipfs_node: "{{ .Values.config.ipfs_node | default "" }}"
+  metrics_port: "{{ .Values.config.metrics_port | default "" }}"
+  node_env: "{{ .Values.config.node_env | default "" }}"
+{{- end -}}

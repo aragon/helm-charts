@@ -1,0 +1,166 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: "{{ include "chart.fullname" . }}"
+  labels:
+    {{- include "chart.labels" . | nindent 4 }}
+    aragon.org/application: "{{ include "chart.name" . }}"
+    aragon.org/environment: "{{ .Values.environment }}"
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "chart.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "chart.selectorLabels" . | nindent 8 }}
+        aragon.org/application: "{{ include "chart.name" . }}"
+        aragon.org/environment: "{{ .Values.environment }}"
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default "latest" }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+            - name: PORT
+              value: "5000"
+            - name: METRICS_PORT
+              value: "5001"
+            - name: DEBUG_KNEX
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "chart.configName" . }}
+                  key: debug_knex
+            - name: DEBUG_SCANNER
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "chart.configName" . }}
+                  key: debug_scanner
+            - name: DEBUG_SUBSCRIPTIONS
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "chart.configName" . }}
+                  key: debug_subscriptions
+            - name: ETH_NODE_MAINNET
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "chart.configName" . }}
+                  key: eth_node_mainnet
+            - name: ETH_NODE_RINKEBY
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "chart.configName" . }}
+                  key: eth_node_rinkeby
+            - name: HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "chart.configName" . }}
+                  key: host
+            - name: IPFS_NODE
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "chart.configName" . }}
+                  key: ipfs_node
+            - name: NODE_ENV
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "chart.configName" . }}
+                  key: node_env
+            - name: JWT_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "chart.secretName" . }}
+                  key: jwt_key
+            - name: PG_CONNECTION_STRING
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "chart.secretName" . }}
+                  key: pg_connection_string
+            - name: POSTMARK_SERVER_API_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "chart.secretName" . }}
+                  key: postmark_server_api_token
+            - name: DB_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "chart.secretName" . }}
+                  key: db_host
+            - name: DB_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "chart.secretName" . }}
+                  key: db_name
+            - name: DB_PASS
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "chart.secretName" . }}
+                  key: db_pass
+            - name: DB_PORT
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "chart.secretName" . }}
+                  key: db_port
+            - name: DB_USER
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "chart.secretName" . }}
+                  key: db_user
+          {{- if .Values.service.checkLiveness }}
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /healthz
+              port: 5000
+              scheme: HTTP
+            initialDelaySeconds: 5
+            periodSeconds: 3
+            successThreshold: 1
+            timeoutSeconds: 1
+          {{- end }}
+          ports:
+          - containerPort: 5000
+            name: api
+            protocol: TCP
+          - containerPort: 5001
+            name: metrics
+            protocol: TCP
+          {{- if .Values.service.checkReadiness }}
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /healthz
+              port: 5000
+              scheme: HTTP
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+          {{- end }}
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
