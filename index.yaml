@@ -354,6 +354,19 @@ entries:
   notification-service:
   - apiVersion: v2
     appVersion: latest
+    created: "2021-09-21T14:32:07.290788225Z"
+    description: Helm chart for aragons notification-service
+    digest: 4b380b4fef12fbcb2fe6ebf0cb77ed105a52abfb536fad1b014f840821fa7e8d
+    maintainers:
+    - email: mathias@aragon.org
+      name: mathewmeconry
+    name: notification-service
+    type: application
+    urls:
+    - https://github.com/aragon/helm-charts/releases/download/notification-service-0.1.1/notification-service-0.1.1.tgz
+    version: 0.1.1
+  - apiVersion: v2
+    appVersion: latest
     created: "2021-09-21T14:28:03.407524021Z"
     description: Helm chart for aragons notification-service
     digest: 01462ff424d950d35fd1445933a11c6c7967c3960a04410b74406ef4cb6e455f
