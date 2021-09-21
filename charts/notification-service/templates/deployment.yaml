@@ -119,6 +119,7 @@ spec:
                 secretKeyRef:
                   name: {{ include "chart.secretName" . }}
                   key: db_user
+          {{- if .Values.service.checkLiveness }}
           livenessProbe:
             failureThreshold: 3
             httpGet:
@@ -129,6 +130,7 @@ spec:
             periodSeconds: 3
             successThreshold: 1
             timeoutSeconds: 1
+          {{- end }}
           ports:
           - containerPort: 5000
             name: api

@@ -11,6 +11,7 @@ affinity: {}
 tolerations: []
 
 checkReadiness: false
+checkLiveness: false
 service:
   annotations: {}
 
