@@ -36,7 +36,8 @@ spec:
     {{- end }}
   {{- end }}
   rules:
-    - host: {{ .Values.ingress.host }}
+    {{- range .Values.ingress.hosts }}
+    - host: {{ . }}
       http:
         paths:
           - backend:
@@ -46,4 +47,5 @@ spec:
                   number: 80
             path: /*
             pathType: ImplementationSpecific
+    {{- end }}
 {{- end }}

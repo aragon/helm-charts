@@ -19,7 +19,8 @@ ingress:
   annotations: {}
   className: ''
   tls: []
-  host: 'notification-service'
+  hosts: 
+    - 'notification-service'
 
 image:
   repository: "gcr.io/kubernetes-charts-ci/notification-service"
