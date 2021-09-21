@@ -37,6 +37,8 @@ spec:
           env:
             - name: PORT
               value: "5000"
+            - name: METRICS_PORT
+              value: "5001"
             - name: DEBUG_KNEX
               valueFrom:
                 configMapKeyRef:
@@ -72,11 +74,6 @@ spec:
                 configMapKeyRef:
                   name: {{ include "chart.configName" . }}
                   key: ipfs_node
-            - name: METRICS_PORT
-              valueFrom:
-                configMapKeyRef:
-                  name: {{ include "chart.configName" . }}
-                  key: metrics_port
             - name: NODE_ENV
               valueFrom:
                 configMapKeyRef:

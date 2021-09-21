@@ -47,5 +47,4 @@ config:
   eth_node_rinkeby: ""
   host: ""
   ipfs_node: ""
-  metrics_port: ""
   node_env: ""
