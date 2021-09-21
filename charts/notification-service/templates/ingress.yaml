@@ -42,7 +42,7 @@ spec:
         paths:
           - backend:
               service:
-                name: "{{ include "chart.fullname" . }}"
+                name: {{ $fullName }}
                 port:
                   number: 80
             path: /*
