@@ -24,8 +24,8 @@ ingress:
     - 'notification-service'
 
 image:
-  repository: "gcr.io/kubernetes-charts-ci/notification-service"
-  tag: "v0.1.0"
+  repository: "ghcr.io/aragonone/notification-service/app"
+  tag: "v0.1.4"
   pullPolicy: IfNotPresent
 
 secret:
