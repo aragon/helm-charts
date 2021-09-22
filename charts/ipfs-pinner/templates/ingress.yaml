@@ -37,7 +37,8 @@ spec:
   {{- end }}
   rules:
   {{- if .Values.server.enabled }}
-    - host: {{ .Values.ingress.serverHost }}
+    {{- range .Values.ingress.serverHosts }}
+    - host: {{ . }}
       http:
         paths:
           - path: /*
@@ -47,5 +48,6 @@ spec:
                 name: "{{ include "chart.fullname" . }}-server"
                 port:
                   number: 8000
+    {{- end }}
   {{- end -}}
 {{- end }}
