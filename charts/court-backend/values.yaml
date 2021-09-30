@@ -75,6 +75,8 @@ app:
 
   affinity: {}
 
+  podAnnotations: {}
+
   config:
     # existingConfigMap: ""
     network: "mainnet"
@@ -112,6 +114,8 @@ server:
   tolerations: []
 
   affinity: {}
+
+  podAnnotations: {}
 
   config:
     # existingConfigMap: ""
@@ -174,6 +178,8 @@ service:
   tolerations: []
 
   affinity: {}
+
+  podAnnotations: {}
 
   config:
     # existingConfigMap: ""
