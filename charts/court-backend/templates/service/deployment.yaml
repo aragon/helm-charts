@@ -40,6 +40,20 @@ spec:
           ports:
             - name: "hot-reloading"
               containerPort: 35729
+            - name: "hb-metrics"
+              containerPort: 9081
+            - name: "reveal-metrics"
+              containerPort: 9082
+            - name: "sett-metrics"
+              containerPort: 9083
+            - name: "keeper-metrics"
+              containerPort: 9084
+            - name: "notscan-metrics"
+              containerPort: 9085
+            - name: "notsend-metrics"
+              containerPort: 9086
+            - name: "monitor-metrics"
+              containerPort: 9087
           env:
             - name: SERVICE_PORT_HEARTBEAT
               value: "9081"
