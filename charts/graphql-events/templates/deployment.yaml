@@ -81,7 +81,7 @@ spec:
       volumes:
         - name: google-secret
           secret:
-            secretName: "google-{{ template "chart.secretName" . }}"
+            secretName: {{ template "chart.secretName" . }}
             defaultMode: 420
             items:
             - key: google_credentials.json
