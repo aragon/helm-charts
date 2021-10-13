@@ -1,0 +1,101 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: "{{ include "chart.fullname" . }}"
+  labels:
+    {{- include "chart.labels" . | nindent 4 }}
+    aragon.org/application: "{{ include "chart.name" . }}"
+    aragon.org/environment: "{{ .Values.environment }}"
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "chart.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "chart.selectorLabels" . | nindent 8 }}
+        aragon.org/application: "{{ include "chart.name" . }}"
+        aragon.org/environment: "{{ .Values.environment }}"
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default "latest" }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+            - name: DB_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: {{ template "chart.secretName" . }}
+                  key: dbName
+            - name: DB_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: {{ template "chart.secretName" . }}
+                  key: dbHost
+            - name: DB_PORT
+              valueFrom:
+                secretKeyRef:
+                  name: {{ template "chart.secretName" . }}
+                  key: dbPort
+            - name: DB_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: {{ template "chart.secretName" . }}
+                  key: dbUser
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ template "chart.secretName" . }}
+                  key: dbPass
+            - name: GOOGLE_APPLICATION_CREDENTIALS
+              value: "/etc/gcp-secret/google_credentials.json"
+            - name: TOPIC
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ template "chart.configName" . }}
+                  key: topic
+            - name: LOG_LEVEL
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ template "chart.configName" . }}
+                  key: loglevel
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          volumeMounts:
+            - name: google-secret
+              mountPath: /etc/gcp-secret
+              readOnly: true
+      volumes:
+        - name: google-secret
+          secret:
+            secretName: "google-{{ template "chart.secretName" . }}"
+            defaultMode: 420
+            items:
+            - key: google_credentials.json
+              path: google_credentials.json
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+        

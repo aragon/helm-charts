@@ -1,0 +1,43 @@
+environment: "production"
+
+replicaCount: 1
+podAnnotations: {}
+imagePullSecrets: {}
+podSecurityContext: {}
+securityContext: {}
+resources: {}
+nodeSelector: {}
+affinity: {}
+tolerations: []
+
+checkReadiness: false
+checkLiveness: false
+service:
+  annotations: {}
+
+ingress:
+  enabled: false
+  annotations: {}
+  className: ''
+  tls: []
+  hosts:
+    - 'notification-service'
+
+image:
+  repository: "ghcr.io/aragon/graphql-events"
+  tag: "latest"
+  pullPolicy: Always
+
+secret:
+  # existingSecret: ""
+  db_host: ""
+  db_name: ""
+  db_pass: ""
+  db_port: ""
+  db_user: ""
+  google_credentials: ""
+
+config:
+  # existingConfigMap: ""
+  topic: "graphql-events"
+  loglevel: "ERROR"

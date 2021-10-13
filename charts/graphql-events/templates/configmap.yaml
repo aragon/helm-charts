@@ -1,0 +1,9 @@
+{{- if not .Values.config.existingConfigMap -}}
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: {{ template "chart.configName" . }}
+data:
+  topic: "{{ .Values.config.topic | default "" }}"
+  loglevel: "{{ .Values.config.loglevel | default "" }}"
+{{- end -}}
