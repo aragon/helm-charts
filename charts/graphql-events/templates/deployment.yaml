@@ -39,27 +39,27 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: {{ template "chart.secretName" . }}
-                  key: dbName
+                  key: db_host
             - name: DB_HOST
               valueFrom:
                 secretKeyRef:
                   name: {{ template "chart.secretName" . }}
-                  key: dbHost
+                  key: db_host
             - name: DB_PORT
               valueFrom:
                 secretKeyRef:
                   name: {{ template "chart.secretName" . }}
-                  key: dbPort
+                  key: db_port
             - name: DB_USERNAME
               valueFrom:
                 secretKeyRef:
                   name: {{ template "chart.secretName" . }}
-                  key: dbUser
+                  key: db_user
             - name: DB_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: {{ template "chart.secretName" . }}
-                  key: dbPass
+                  key: db_pass
             - name: GOOGLE_APPLICATION_CREDENTIALS
               value: "/etc/gcp-secret/google_credentials.json"
             - name: TOPIC
