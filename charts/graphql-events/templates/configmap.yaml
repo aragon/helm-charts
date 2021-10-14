@@ -6,4 +6,9 @@ metadata:
 data:
   topic: "{{ .Values.config.topic | default "" }}"
   loglevel: "{{ .Values.config.loglevel | default "" }}"
+  rpc_mainnet: "{{ .Values.config.rpc_mainnet | default "" }}"
+  rpc_rinkeby: "{{ .Values.config.rpc_rinkeby | default "" }}"
+  rpc_polygon: "{{ .Values.config.rpc_polygon | default "" }}"
+  rpc_mumbai: "{{ .Values.config.rpc_mumbai | default "" }}"
+  cache_retention: "{{ .Values.config.cache_retention | default "" }}"
 {{- end -}}

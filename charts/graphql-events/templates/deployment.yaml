@@ -72,6 +72,31 @@ spec:
                 configMapKeyRef:
                   name: {{ template "chart.configName" . }}
                   key: loglevel
+            - name: RPC_MAINNET
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ template "chart.configName" . }}
+                  key: rpc_mainnet
+            - name: RPC_RINKEBY
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ template "chart.configName" . }}
+                  key: rpc_rinkeby
+            - name: RPC_POLYGON
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ template "chart.configName" . }}
+                  key: rpc_polygon
+            - name: RPC_MUMBAI
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ template "chart.configName" . }}
+                  key: rpc_mumbai
+            - name: CACHE_RETENTION
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ template "chart.configName" . }}
+                  key: cache_retention
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:

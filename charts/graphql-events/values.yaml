@@ -41,3 +41,8 @@ config:
   # existingConfigMap: ""
   topic: "graphql-events"
   loglevel: "ERROR"
+  rpc_mainnet: ""
+  rpc_rinkeby: ""
+  rpc_polygon: ""
+  rpc_mumbai: ""
+  cache_retention: "604800000" # 7 days
