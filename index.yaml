@@ -302,6 +302,20 @@ entries:
     urls:
     - https://github.com/aragon/helm-charts/releases/download/court-backend-v1-0.1.0/court-backend-v1-0.1.0.tgz
     version: 0.1.0
+  graphql-events:
+  - apiVersion: v2
+    appVersion: latest
+    created: "2021-10-14T09:44:21.295975545Z"
+    description: Helm chart for aragons graphql-events
+    digest: e33b53dadabc4a04541b4f136c4a37c67a15df528bba03d93a6125489dc018a6
+    maintainers:
+    - email: mathias@aragon.org
+      name: mathewmeconry
+    name: graphql-events
+    type: application
+    urls:
+    - https://github.com/aragon/helm-charts/releases/download/graphql-events-0.0.1/graphql-events-0.0.1.tgz
+    version: 0.0.1
   ipfs-pinner:
   - apiVersion: v2
     created: "2021-09-03T13:29:45.139192871Z"
